@@ -157,11 +157,11 @@ def main():
     # Dataset
     # =========================
     train_dataset = SixChannelDataset(
-        root_dir=r"F:\2026_8025504_Kryoma\my_data\image\raw\train"
+        root_dir=r"!YOUR_DATAPATH!\my_data\image\raw\train"
     )
 
     val_dataset = SixChannelDataset(
-        root_dir=r"F:\2026_8025504_Kryoma\my_data\image\raw\validation",
+        root_dir=r"!YOUR_DATAPATH!\my_data\image\raw\validation",
         geo_aug=None
     )
 

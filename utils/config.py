@@ -8,7 +8,7 @@ import torch
 # =========================
 # データセット設定
 # =========================
-DATASET_ROOT = r"F:\2026_8025504_Kryoma\my_data\image\raw"
+DATASET_ROOT = r"!YOUR_DATAPATH!\my_data\image\raw"
 
 TRAIN_DATA_PATH = os.path.join(DATASET_ROOT, "train")
 VAL_DATA_PATH = os.path.join(DATASET_ROOT, "validation")
@@ -25,16 +25,16 @@ TEST_DATA_PATH = os.path.join(DATASET_ROOT, "test")
 # └── synthesis/
 #     ├── train/
 #     └── test/
-CELEBDF_ROOT = r"F:\2026_8025504_Kryoma\external_dataset\Celeb-DF\rsc\raw"
+CELEBDF_ROOT = r"!YOUR_DATAPATH!\external_dataset\Celeb-DF\rsc\raw"
 
 # 複数テストデータセットの定義
 CROSS_DATASET_TEST_DATASETS = {
-    "DF": r"F:\2026_8025504_Kryoma\external_dataset\DF_test\rsc\raw",
-    "DFD": r"F:\2026_8025504_Kryoma\external_dataset\dfd_test\rsc\raw",
-    "F2F": r"F:\2026_8025504_Kryoma\external_dataset\F2F_test\rsc\raw",
-    "FS": r"F:\2026_8025504_Kryoma\external_dataset\FS_test\rsc\raw",
-    "FSfter": r"F:\2026_8025504_Kryoma\external_dataset\FSfter_test\rsc\raw",
-    "NT": r"F:\2026_8025504_Kryoma\external_dataset\NT_test\rsc\raw",
+    "DF": r"!YOUR_DATAPATH!\external_dataset\DF_test\rsc\raw",
+    "DFD": r"!YOUR_DATAPATH!\external_dataset\dfd_test\rsc\raw",
+    "F2F": r"!YOUR_DATAPATH!\external_dataset\F2F_test\rsc\raw",
+    "FS": r"!YOUR_DATAPATH!\external_dataset\FS_test\rsc\raw",
+    "FSfter": r"!YOUR_DATAPATH!\external_dataset\FSfter_test\rsc\raw",
+    "NT": r"!YOUR_DATAPATH!\external_dataset\NT_test\rsc\raw",
 }
 
 # Cross-Validation設定

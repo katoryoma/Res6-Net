@@ -59,7 +59,7 @@
 Celeb-DF データセットが以下の構造になっていることを確認してください：
 
 ```
-F:/2026_8025504_Kryoma/external_dataset/Celeb-DF/rsc/raw/
+!YOUR_CELEBDF_PATH!
 ├── real/
 │   ├── train/
 │   │   ├── <videoID_1>/
@@ -95,7 +95,7 @@ python scripts/inspect_celebdf_dataset.py
 ```
 ================================================================================
 Inspecting Celeb-DF Train/Test Dataset
-Root Directory: F:\2026_8025504_Kryoma\external_dataset\Celeb-DF\rsc\raw\real(synthesis)\train
+Root Directory: !YOUR_CELEBDF_PATH!\Celeb-DF\rsc\raw\real(synthesis)\train
 ================================================================================
 
 Class           Videos     Total Frames   Avg Frames/Video   Min      Max
@@ -295,12 +295,12 @@ python test/test_celebdf_ensemble_cross_dataset.py [--model-type MODEL_TYPE] [--
 
 | データセット名 | パス | 説明 |
 |---|---|---|
-| DF | `F:/2026_8025504_Kryoma/external_dataset/DF_test` | DeepFakes テストセット |
-| DFD | `F:/2026_8025504_Kryoma/external_dataset/dfd_test` | Deep Fake Detection テストセット |
-| F2F | `F:/2026_8025504_Kryoma/external_dataset/F2F_test` | Face2Face テストセット |
-| FS | `F:/2026_8025504_Kryoma/external_dataset/FS_test` | FaceSwap テストセット |
-| FSfter | `F:/2026_8025504_Kryoma/external_dataset/FSfter_test` | FaceSwap-After テストセット |
-| NT | `F:/2026_8025504_Kryoma/external_dataset/NT_test` | Neural Textures テストセット |
+| DF | `!YOUR_FF_DATAPATH!/DF_test` | DeepFakes テストセット |
+| DFD | `!YOUR_FF_DATAPATH!/dfd_test` | Deep Fake Detection テストセット |
+| F2F | `!YOUR_FF_DATAPATH!/F2F_test` | Face2Face テストセット |
+| FS | `!YOUR_FF_DATAPATH!/FS_test` | FaceSwap テストセット |
+| FSfter | `!YOUR_FF_DATAPATH!/FSfter_test` | FaceSwap-After テストセット |
+| NT | `!YOUR_FF_DATAPATH!/NT_test` | Neural Textures テストセット |
 
 **出力例：**
 ```
@@ -530,7 +530,7 @@ x, label = dataset[idx]  # x: [C, H, W] tensor, label: int
 
 ```python
 # Celeb-DF ルートディレクトリ
-CELEBDF_ROOT = r"F:\2026_8025504_Kryoma\external_dataset\Celeb-DF\rsc\raw"
+CELEBDF_ROOT = r"!YOUR_CELEBDF_PATH!\Celeb-DF\rsc\raw"
 
 # データセット構造（train/testディレクトリ）
 CELEBDF_TRAIN_TEST_DIR = os.path.join(CELEBDF_ROOT, "real(synthesis)", "train")
@@ -558,7 +558,7 @@ CELEBDF_TEST_DIR = r"別のパス/test"
 ### データセットが見つからない
 
 ```
-❌ Root directory does not exist: F:\2026_8025504_Kryoma\external_dataset\...
+❌ Root directory does not exist: !YOUR_DATAPATH!\...
 ```
 
 **対策：**
