@@ -1,0 +1,37 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# モデルチェックポイント
+checkpoints/
+*.pth
+
+# ログ・実験結果
+logs/
+*.csv
+
+# ノートブック出力
+notebook/outputs/
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.egg
+
+# 環境
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Virtual environments
+.venv

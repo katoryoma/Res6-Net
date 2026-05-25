@@ -1,0 +1,46 @@
+[project]
+name = "res6"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11, <3.12"
+dependencies = [
+    "torch>=2.0.0",
+    "torchvision>=0.15.0",
+    "torchaudio>=2.0.0",
+    "pillow>=9.0.0",
+    "numpy==1.26.4",
+    "scikit-learn>=1.0.0",
+    "matplotlib>=3.5.0",
+    "seaborn>=0.12.0",
+    "streamlit>=1.28.0",
+    "opencv-python==4.10.0.84",
+    "mediapipe>=0.10.35",
+    "tqdm>=4.66.5",
+]
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cpu", marker = "sys_platform == 'darwin'"},
+  { index = "pytorch-cu121", marker = "sys_platform != 'darwin'"},
+]
+
+torchvision = [
+  { index = "pytorch-cpu", marker = "sys_platform == 'darwin'" },
+  { index = "pytorch-cu121", marker = "sys_platform != 'darwin'" },
+]
+
+torchaudio = [
+  { index = "pytorch-cpu", marker = "sys_platform == 'darwin'" },
+  { index = "pytorch-cu121", marker = "sys_platform != 'darwin'" },
+]
+
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = false
+
+[[tool.uv.index]]
+name = "pytorch-cu121"
+url = "https://download.pytorch.org/whl/cu121"
