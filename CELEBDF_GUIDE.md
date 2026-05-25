@@ -36,13 +36,19 @@
 
 ```
 プロジェクト/
+├── utils/
+│   └── config.py               # Celeb-DF設定を追加
+├── train/
+│   ├── train_celebdf.py        # Celeb-DF用トレーニングスクリプト
+│   └── run_cross_validation_celebdf.py  # CV実行スクリプト
+├── test/
+│   ├── test_celebdf.py         # Celeb-DF用テストスクリプト
+│   ├── test_celebdf_ensemble.py
+│   └── test_celebdf_ensemble_cross_dataset.py
+├── scripts/
+│   └── inspect_celebdf_dataset.py  # データセット検証スクリプト
 ├── dataset/
 │   └── dataset.py              # CelebDFDataset クラスを追加
-├── config.py                   # Celeb-DF設定を追加
-├── train_celebdf.py            # Celeb-DF用トレーニングスクリプト
-├── test_celebdf.py             # Celeb-DF用テストスクリプト
-├── run_cross_validation_celebdf.py  # CV実行スクリプト
-├── inspect_celebdf_dataset.py  # データセット検証スクリプト
 └── CELEBDF_GUIDE.md            # このファイル
 ```
 
@@ -82,7 +88,7 @@ F:/2026_8025504_Kryoma/external_dataset/Celeb-DF/rsc/raw/
 データセット構造の整合性をチェックします：
 
 ```bash
-python inspect_celebdf_dataset.py
+python scripts/inspect_celebdf_dataset.py
 ```
 
 出力例：
@@ -111,24 +117,24 @@ Video Balance Check:
 **Fold 0 でトレーニング（6chモデル）：**
 
 ```bash
-python train_celebdf.py 6ch 0
+python train/train_celebdf.py 6ch 0
 ```
 
 **Fold 1 でトレーニング（3chモデル）：**
 
 ```bash
-python train_celebdf.py 3ch 1
+python train/train_celebdf.py 3ch 1
 ```
 
 **Fold 0 でトレーニング（3ch_res モデル - Residual のみ）：**
 
 ```bash
-python train_celebdf.py 3ch_res 0
+python train/train_celebdf.py 3ch_res 0
 ```
 
 **コマンドラインオプション：**
 ```
-python train_celebdf.py [model_type] [fold]
+python train/train_celebdf.py [model_type] [fold]
 
 model_type: "3ch", "3ch_res" または "6ch" (デフォルト: 6ch)
 fold:       Cross-Validation の折番号 (デフォルト: 0)
@@ -139,13 +145,13 @@ fold:       Cross-Validation の折番号 (デフォルト: 0)
 **Fold 0 でテスト（6chモデル）：**
 
 ```bash
-python test_celebdf.py 6ch 0
+python test/test_celebdf.py 6ch 0
 ```
 
 **Fold 0 でテスト（3ch_res モデル）：**
 
 ```bash
-python test_celebdf.py 3ch_res 0
+python test/test_celebdf.py 3ch_res 0
 ```
 
 出力例：
@@ -166,7 +172,7 @@ F1 Score:  0.9160
 **5-Fold Cross-Validation（6chモデル）：**
 
 ```bash
-python run_cross_validation_celebdf.py 6ch 5
+python train/run_cross_validation_celebdf.py 6ch 5
 ```
 
 このコマンドで、Fold 0～4 の全フォルドに対して自動的にトレーニングとテストが実行されます。
@@ -174,12 +180,12 @@ python run_cross_validation_celebdf.py 6ch 5
 **5-Fold Cross-Validation（3ch_res モデル - Residual のみ）：**
 
 ```bash
-python run_cross_validation_celebdf.py 3ch_res 5
+python train/run_cross_validation_celebdf.py 3ch_res 5
 ```
 
 **コマンドラインオプション：**
 ```
-python run_cross_validation_celebdf.py [model_type] [num_folds]
+python train/run_cross_validation_celebdf.py [model_type] [num_folds]
 
 model_type: "3ch", "3ch_res" または "6ch" (デフォルト: 6ch)
 num_folds:  Fold数 (デフォルト: 5)
@@ -192,24 +198,24 @@ num_folds:  Fold数 (デフォルト: 5)
 **アンサンブルテスト実行（6chモデル）：**
 
 ```bash
-python test_celebdf_ensemble.py 6ch
+python test/test_celebdf_ensemble.py 6ch
 ```
 
 **アンサンブルテスト実行（3chモデル）：**
 
 ```bash
-python test_celebdf_ensemble.py 3ch
+python test/test_celebdf_ensemble.py 3ch
 ```
 
 **アンサンブルテスト実行（3ch_res モデル）：**
 
 ```bash
-python test_celebdf_ensemble.py 3ch_res
+python test/test_celebdf_ensemble.py 3ch_res
 ```
 
 **コマンドラインオプション：**
 ```
-python test_celebdf_ensemble.py [model_type]
+python test/test_celebdf_ensemble.py [model_type]
 
 model_type: "3ch", "3ch_res" または "6ch" (デフォルト: 6ch)
 ```
@@ -262,24 +268,24 @@ Confusion Matrix:
 **全データセットで評価（6chモデル）：**
 
 ```bash
-python test_celebdf_ensemble_cross_dataset.py --model-type 6ch --dataset all
+python test/test_celebdf_ensemble_cross_dataset.py --model-type 6ch --dataset all
 ```
 
 **特定のデータセットで評価（DFデータセット、3chモデル）：**
 
 ```bash
-python test_celebdf_ensemble_cross_dataset.py --model-type 3ch --dataset DF
+python test/test_celebdf_ensemble_cross_dataset.py --model-type 3ch --dataset DF
 ```
 
 **特定のデータセットで評価（DFデータセット、3ch_resモデル）：**
 
 ```bash
-python test_celebdf_ensemble_cross_dataset.py --model-type 3ch_res --dataset DF
+python test/test_celebdf_ensemble_cross_dataset.py --model-type 3ch_res --dataset DF
 ```
 
 **コマンドラインオプション：**
 ```
-python test_celebdf_ensemble_cross_dataset.py [--model-type MODEL_TYPE] [--dataset DATASET]
+python test/test_celebdf_ensemble_cross_dataset.py [--model-type MODEL_TYPE] [--dataset DATASET]
 
 --model-type: "3ch", "3ch_res" または "6ch" (デフォルト: 6ch)
 --dataset:    "DF", "DFD", "F2F", "FS", "FSfter", "NT", または "all" (デフォルト: all)

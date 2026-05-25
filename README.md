@@ -13,27 +13,27 @@ ResNet18 をベースとしたディープフェイク検出モデルです。RG
 - **チェックポイント**: `checkpoints/3ch/`
 
 ```bash
-python train.py 3ch
+python train/train.py 3ch
 ```
 
 ### 2. **3ch_res** (Residual のみ) ⭐ NEW
 - **入力チャネル数**: 3 (Residual)
 - **説明**: Residual特徴のみを入力
 - **用途**: Residual信号の有効性を評価
-- **チェックポイント**: `checkpoints/3ch_res/`
+- **チェックポイント**: `checkpoints/celebdf_fold*/3ch_res/`
 
 ```bash
-python train.py 3ch_res
+python train/train.py 3ch_res
 ```
 
 ### 3. **6ch** (RGB + Residual)
 - **入力チャネル数**: 6 (RGB + Residual)
 - **説明**: RGB画像と Residual特徴を結合した入力
 - **用途**: 複合特徴を活用したモデル（デフォルト）
-- **チェックポイント**: `checkpoints/6ch/`
+- **チェックポイント**: `checkpoints/celebdf_fold*/6ch/`
 
 ```bash
-python train.py 6ch
+python train/train.py 6ch
 ```
 
 ## Residual 特徴について
@@ -54,18 +54,24 @@ Residual 特徴は以下の手順で計算されます：
 
 ```bash
 # デフォルト（6ch）でトレーニング
-python train.py
+python train/train.py
 
 # 3ch で実行
-python train.py 3ch
+python train/train.py 3ch
 
 # 3ch_res で実行
-python train.py 3ch_res
+python train/train.py 3ch_res
+
+# Celeb-DF でのトレーニング（Fold 0）
+python train/train_celebdf.py 6ch 0
+
+# Cross-Validation 実行（5-Fold）
+python train/run_cross_validation_celebdf.py 6ch 5
 ```
 
 ## 設定
 
-すべての設定は [config.py](config.py) で管理されています：
+すべての設定は [utils/config.py](utils/config.py) で管理されています：
 
 | 設定項目 | デフォルト値 |
 |--------|-----------|
@@ -79,19 +85,33 @@ python train.py 3ch_res
 
 ```
 .
+├── utils/
+│   ├── config.py             # 設定ファイル
+│   ├── util.py               # ユーティリティ関数
+│   └── trainer.py            # トレーナークラス
+├── train/
+│   ├── train.py              # 標準トレーニング
+│   ├── train_celebdf.py      # Celeb-DF トレーニング
+│   └── run_cross_validation_celebdf.py  # CV実行
+├── test/
+│   ├── test.py               # 標準テスト
+│   ├── test_celebdf.py       # Celeb-DF テスト
+│   ├── test_celebdf_ensemble.py
+│   └── test_celebdf_ensemble_cross_dataset.py
+├── scripts/
+│   ├── check_data_leakage.py
+│   ├── check_data_split.py
+│   ├── inspect_celebdf_dataset.py
+│   └── verify_celebdf_implementation.py
 ├── models/
 │   └── resnet18.py           # ResNet18 モデル定義
 ├── dataset/
 │   ├── dataset.py            # データセット定義
 │   └── transforms.py         # 画像変換処理
-├── config.py                 # 設定ファイル
-├── train.py                  # トレーニングスクリプト
-├── trainer.py                # トレーナークラス
-├── util.py                   # ユーティリティ関数
 ├── checkpoints/              # 保存されたモデル
-│   ├── 3ch/
-│   ├── 3ch_res/             # NEW
-│   └── 6ch/
+│   ├── 3ch/, 3ch_res/, 6ch/
+│   ├── celebdf_fold0/, celebdf_fold1/, ...
+│   └── my_dataset/
 └── logs/                     # トレーニングログ
 ```
 
@@ -99,13 +119,19 @@ python train.py 3ch_res
 
 | ファイル | 説明 |
 |--------|------|
-| [config.py](config.py) | データセットパス、トレーニング設定、モデル設定を管理 |
-| [train.py](train.py) | トレーニングエントリーポイント |
-| [trainer.py](trainer.py) | トレーニングロジック（勾配更新、ログ記録など） |
+| [utils/config.py](utils/config.py) | データセットパス、トレーニング設定、モデル設定を管理 |
+| [train/train.py](train/train.py) | 標準トレーニングエントリーポイント |
+| [train/train_celebdf.py](train/train_celebdf.py) | Celeb-DF トレーニング（K-Fold対応） |
+| [train/run_cross_validation_celebdf.py](train/run_cross_validation_celebdf.py) | Cross-Validation実行スクリプト |
+| [utils/trainer.py](utils/trainer.py) | トレーニングロジック（勾配更新、ログ記録など） |
+| [test/test.py](test/test.py) | 標準テストスクリプト |
+| [test/test_celebdf.py](test/test_celebdf.py) | Celeb-DF テストスクリプト |
+| [test/test_celebdf_ensemble.py](test/test_celebdf_ensemble.py) | アンサンブルテスト（5-Fold平均） |
+| [test/test_celebdf_ensemble_cross_dataset.py](test/test_celebdf_ensemble_cross_dataset.py) | クロスデータセット評価 |
 | [models/resnet18.py](models/resnet18.py) | 入力チャネルに対応したResNet18実装 |
 | [dataset/dataset.py](dataset/dataset.py) | `ImageDataset` と `CelebDFDataset` クラス |
 | [dataset/transforms.py](dataset/transforms.py) | 画像変換・前処理 |
-| [util.py](util.py) | ユーティリティ関数 |
+| [utils/util.py](utils/util.py) | ユーティリティ関数（メトリクス計算など） |
 
 ## データセット
 

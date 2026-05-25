@@ -25,7 +25,7 @@ import pandas as pd
 from torch.utils.data import DataLoader
 from collections import defaultdict
 
-from config import (
+from utils.config import (
     SEED,
     BATCH_SIZE,
     DEVICE,
@@ -36,7 +36,7 @@ from config import (
 )
 from dataset.dataset import CelebDFDataset
 from models.resnet18 import build_model
-from util import set_seed
+from utils.util import set_seed
 from tqdm import tqdm
 
 
@@ -51,7 +51,7 @@ def load_ensemble_models(model_type, num_folds=5):
     Returns:
         list: 読み込んだモデルのリスト
     """
-    from config import get_celebdf_model_path
+    from utils.config import get_celebdf_model_path
     
     models = []
     model_info = get_model_info(model_type)
@@ -125,7 +125,7 @@ def ensemble_predict(models, test_loader):
     all_probs = np.array(all_probs)
     
     # メトリクス計算
-    from util import _compute_metrics
+    from utils.util import _compute_metrics
     
     metrics = _compute_metrics(all_labels, all_preds, all_probs, num_classes=2)
     

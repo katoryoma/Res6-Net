@@ -22,7 +22,7 @@ import pandas as pd
 
 from torch.utils.data import DataLoader
 
-from config import (
+from utils.config import (
     CELEBDF_ROOT,
     SEED,
     BATCH_SIZE,
@@ -34,7 +34,7 @@ from config import (
 )
 from dataset.dataset import CelebDFDataset
 from models.resnet18 import build_model
-from util import set_seed, save_test_log
+from utils.util import set_seed, save_test_log
 from tqdm import tqdm
 
 
@@ -122,7 +122,7 @@ def ensemble_predict(models, test_loader):
     all_probs = np.array(all_probs)
     
     # メトリクス計算
-    from util import _compute_metrics
+    from utils.util import _compute_metrics
     
     metrics = _compute_metrics(all_labels, all_preds, all_probs, num_classes=2)
     

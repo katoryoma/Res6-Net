@@ -415,29 +415,61 @@ else:
 
 ```
 Res6-Net/
+├── utils/
+│   ├── config.py                # 設定ファイル
+│   ├── util.py                  # ユーティリティ関数
+│   └── trainer.py               # トレーニングループ
+├── train/
+│   ├── train.py                 # 標準トレーニングスクリプト
+│   ├── train_celebdf.py         # Celeb-DF トレーニング
+│   └── run_cross_validation_celebdf.py  # CV実行
+├── test/
+│   ├── test.py                  # 標準テストスクリプト
+│   ├── test_celebdf.py          # Celeb-DF テスト
+│   ├── test_celebdf_ensemble.py
+│   └── test_celebdf_ensemble_cross_dataset.py
+├── scripts/
+│   ├── check_data_leakage.py
+│   ├── check_data_split.py
+│   ├── inspect_celebdf_dataset.py
+│   └── verify_celebdf_implementation.py
 ├── models/
 │   └── resnet18.py              # モデル定義
 ├── dataset/
 │   ├── dataset.py               # データセットクラス
 │   └── transforms.py            # 前処理・増幅
-├── trainer.py                   # トレーニングループ
-├── config.py                    # 設定ファイル
-├── train.py / train_celebdf.py  # トレーニングスクリプト
-├── test.py / test_celebdf.py    # 推論スクリプト
-├── util.py                      # ユーティリティ関数
 ├── checkpoints/                 # チェックポイント保存先
-│   └── celebdf_fold{0-4}/
-│       ├── 3ch/
-│       ├── 3ch_res/
-│       └── 6ch/
+│   ├── 3ch/, 3ch_res/, 6ch/
+│   ├── celebdf_fold0-4/
+│   │   └── 3ch/, 3ch_res/, 6ch/
+│   └── my_dataset/
+│       └── 3ch/, 6ch/
 └── logs/                        # ログファイル
-    └── celebdf_fold{0-4}/
-        ├── 3ch/
-        ├── 3ch_res/
-        └── 6ch/
+    ├── celebdf_fold0-4/
+    ├── celebdf_ensemble/
+    ├── cross_dataset_probabilities/
+    └── cross_dataset_evaluation_{model_type}.csv
 ```
 
 ### 主要ファイルの役割
+
+#### `utils/config.py`
+- **機能**: 全体設定の管理
+- **設定内容**: 
+  - データセットパス
+  - モデルパラメータ
+  - 学習ハイパーパラメータ
+  - モデルタイプ定義
+  - Celeb-DF設定
+
+#### `utils/util.py`
+- **機能**: ユーティリティ関数（メトリクス計算、ログ保存）
+- **主要関数**: `evaluate()`, `save_test_log()`, `seed_everything()`
+
+#### `utils/trainer.py`
+- **機能**: トレーニング・検証ループの実装
+- **クラス**: `Trainer`
+- **メソッド**: `train_one_epoch()`, `validate()`, `fit()`
 
 #### `models/resnet18.py`
 - **機能**: ResNet18モデルの構築と初期化
@@ -447,25 +479,12 @@ Res6-Net/
 
 #### `dataset/dataset.py`
 - **機能**: 画像データセット読み込みとResidual特徴抽出
-- **クラス**: `ImageDataset`, `SixChannelDataset`
+- **クラス**: `ImageDataset`, `CelebDFDataset`
 - **出力**: (画像, ラベル) ペア
 
 #### `dataset/transforms.py`
 - **機能**: 幾何学的データ増幅（Geometric Augmentation）
 - **含む**: Random Crop, Flip, Rotation
-
-#### `trainer.py`
-- **機能**: トレーニング・検証ループの実装
-- **クラス**: `Trainer`
-- **メソッド**: `train_one_epoch()`, `validate()`, `fit()`
-
-#### `config.py`
-- **機能**: 全体設定の管理
-- **設定内容**: 
-  - データセットパス
-  - モデルパラメータ
-  - 学習ハイパーパラメータ
-  - モデルタイプ定義
 
 ---
 

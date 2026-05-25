@@ -2,7 +2,7 @@
 Train/Val データ分割の比率確認スクリプト
 """
 import os
-from config import CELEBDF_ROOT
+from utils.config import CELEBDF_ROOT
 from dataset.dataset import CelebDFDataset
 
 def check_split(model_type, fold):
@@ -11,7 +11,7 @@ def check_split(model_type, fold):
     print(f"Model Type: {model_type}, Fold: {fold}")
     print(f"{'='*70}")
     
-    from config import get_model_info
+    from utils.config import get_model_info
     model_info = get_model_info(model_type)
     use_residual = model_info["use_residual"]
     

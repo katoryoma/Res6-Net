@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader
 
 from dataset.dataset import SixChannelDataset
 from models.resnet18 import build_model
-from util import accuracy, set_seed, save_model
+from .util import accuracy, set_seed, save_model
 
 
 class Trainer:

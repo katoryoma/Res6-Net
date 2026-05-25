@@ -7,8 +7,8 @@ Celeb-DF データセット用の Cross-Validation runner
 import os
 import sys
 
-from train_celebdf import main as train_main
-from test_celebdf import main as test_main
+from .train_celebdf import main as train_main
+from test.test_celebdf import main as test_main
 
 
 def run_cross_validation(model_type="6ch", num_folds=5):

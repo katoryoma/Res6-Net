@@ -4,7 +4,7 @@ import torch
 
 from torch.utils.data import DataLoader
 
-from config import (
+from utils.config import (
     TEST_DATA_PATH,
     SEED,
     BATCH_SIZE,
@@ -17,7 +17,7 @@ from config import (
 )
 from dataset.dataset import ImageDataset
 from models.resnet18 import build_model
-from util import set_seed, evaluate, save_test_log
+from utils.util import set_seed, evaluate, save_test_log
 
 
 def main(model_type=None):

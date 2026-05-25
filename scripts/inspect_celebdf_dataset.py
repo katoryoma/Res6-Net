@@ -6,7 +6,7 @@ Celeb-DFデータセット構造の検証・確認スクリプト
 
 import os
 from collections import defaultdict
-from config import CELEBDF_ROOT, CELEBDF_VAL_SPLIT, CROSS_DATASET_TEST_DATASETS
+from utils.config import CELEBDF_ROOT, CELEBDF_VAL_SPLIT, CROSS_DATASET_TEST_DATASETS
 
 
 def load_balanced_synthesis_list():
@@ -193,41 +193,6 @@ if __name__ == "__main__":
         test_total_frames = real_test['frame_count'] + syn_test['frame_count']
         print(f"  Total Test Frames: {test_total_frames}")
     
-    # Cross-Dataset Test
-    print("\n[Cross-Dataset Test Datasets]")
-    cross_dataset_results = {}
-    for dataset_name, dataset_root in CROSS_DATASET_TEST_DATASETS.items():
-        real_dir = os.path.join(dataset_root, "real", "test")
-        syn_dir = os.path.join(dataset_root, "synthesis", "test")
-        
-        print(f"\n  {dataset_name}:")
-        
-        real_data = inspect_dataset(real_dir, f"{dataset_name} Real Test", filter_videos=None)
-        syn_data = inspect_dataset(syn_dir, f"{dataset_name} Synthesis Test", filter_videos=None)
-        
-        if real_data and syn_data:
-            total = real_data['frame_count'] + syn_data['frame_count']
-            print(f"    Real:      {real_data['video_count']:3} videos, {real_data['frame_count']:6} frames")
-            print(f"    Synthesis: {syn_data['video_count']:3} videos, {syn_data['frame_count']:6} frames")
-            print(f"    Total:     {total:6} frames")
-            cross_dataset_results[dataset_name] = total
-        elif real_data:
-            print(f"    Real:      {real_data['video_count']:3} videos, {real_data['frame_count']:6} frames")
-            cross_dataset_results[dataset_name] = real_data['frame_count']
-        elif syn_data:
-            print(f"    Synthesis: {syn_data['video_count']:3} videos, {syn_data['frame_count']:6} frames")
-            cross_dataset_results[dataset_name] = syn_data['frame_count']
-    
-    print("\n" + "="*80)
-    print("Cross-Dataset Summary:")
-    print("="*80)
-    for dataset_name, total_frames in cross_dataset_results.items():
-        print(f"  {dataset_name}: {total_frames:6} frames")
-    
     print("\n" + "="*80)
     print("✓ Dataset inspection completed!")
-    print("="*80)
-    print("\nQuick Start:")
-    print("  python train_celebdf.py 6ch 0")
-    print("  python run_cross_validation_celebdf.py 6ch 5")
     print("="*80 + "\n")

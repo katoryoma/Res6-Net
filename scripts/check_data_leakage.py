@@ -9,7 +9,7 @@
 """
 
 import os
-from config import CELEBDF_ROOT
+from utils.config import CELEBDF_ROOT
 from dataset.dataset import CelebDFDataset
 
 def check_data_leakage():

@@ -16,15 +16,14 @@ print("1. 新規作成ファイルの確認:")
 print("-" * 80)
 
 new_files = [
-    ("train_celebdf.py", "Celeb-DF用トレーニングスクリプト"),
-    ("test_celebdf.py", "Celeb-DF用テストスクリプト"),
-    ("run_cross_validation_celebdf.py", "Cross-Validation実行スクリプト"),
-    ("inspect_celebdf_dataset.py", "データセット検証スクリプト"),
-    ("CELEBDF_GUIDE.md", "使用ガイド"),
+    ("train/train_celebdf.py", "Celeb-DF用トレーニングスクリプト"),
+    ("test/test_celebdf.py", "Celeb-DF用テストスクリプト"),
+    ("train/run_cross_validation_celebdf.py", "Cross-Validation実行スクリプト"),
+    ("scripts/inspect_celebdf_dataset.py", "データセット検証スクリプト"),
 ]
 
 for filename, description in new_files:
-    filepath = os.path.join(os.path.dirname(__file__), filename)
+    filepath = os.path.join(os.path.dirname(__file__), "..", filename)
     exists = "✓" if os.path.exists(filepath) else "✗"
     print(f"  {exists} {filename:<40} - {description}")
 
@@ -33,12 +32,12 @@ print("\n2. 既存ファイルの修正確認:")
 print("-" * 80)
 
 existing_files = [
-    ("config.py", "Celeb-DF設定を追加"),
+    ("utils/config.py", "Celeb-DF設定を追加"),
     ("dataset/dataset.py", "CelebDFDatasetクラスを追加"),
 ]
 
 for filename, description in existing_files:
-    filepath = os.path.join(os.path.dirname(__file__), filename)
+    filepath = os.path.join(os.path.dirname(__file__), "..", filename)
     exists = "✓" if os.path.exists(filepath) else "✗"
     print(f"  {exists} {filename:<40} - {description}")
 
@@ -47,7 +46,7 @@ print("\n3. Imports テスト:")
 print("-" * 80)
 
 try:
-    from config import CELEBDF_ROOT, CELEBDF_TRAIN_TEST_DIR, CELEBDF_VAL_SPLIT
+    from utils.config import CELEBDF_ROOT, CELEBDF_VAL_SPLIT
     print("  ✓ config からのインポート成功")
 except Exception as e:
     print(f"  ✗ config からのインポート失敗: {e}")
@@ -59,13 +58,13 @@ except Exception as e:
     print(f"  ✗ CelebDFDataset クラスのインポート失敗: {e}")
 
 try:
-    from trainer import Trainer
+    from utils.trainer import Trainer
     print("  ✓ Trainer クラスのインポート成功")
 except Exception as e:
     print(f"  ✗ Trainer クラスのインポート失敗: {e}")
 
 try:
-    from util import evaluate, save_test_log
+    from utils.util import evaluate, save_test_log
     print("  ✓ util から evaluate と save_test_log のインポート成功")
 except Exception as e:
     print(f"  ✗ util からのインポート失敗: {e}")
@@ -75,10 +74,8 @@ print("\n4. 設定値の確認:")
 print("-" * 80)
 
 try:
-    from config import (
+    from utils.config import (
         CELEBDF_ROOT, 
-        CELEBDF_TRAIN_TEST_DIR,
-        CELEBDF_TEST_DIR,
         CELEBDF_VAL_SPLIT,
         CELEBDF_BALANCE_VIDEOS,
         get_celebdf_checkpoint_dir,
@@ -89,8 +86,6 @@ try:
     )
     
     print(f"  ✓ CELEBDF_ROOT設定: {CELEBDF_ROOT}")
-    print(f"  ✓ CELEBDF_TRAIN_TEST_DIR: {CELEBDF_TRAIN_TEST_DIR}")
-    print(f"  ✓ CELEBDF_TEST_DIR: {CELEBDF_TEST_DIR}")
     print(f"  ✓ VAL_SPLIT: {CELEBDF_VAL_SPLIT}")
     print(f"  ✓ BALANCE_VIDEOS: {CELEBDF_BALANCE_VIDEOS}")
     
@@ -116,7 +111,7 @@ try:
     methods = [
         "__init__", "__len__", "__getitem__", 
         "set_epoch", "create_residual", 
-        "_collect_videos", "_split_videos", "_create_samples", "_balance_samples"
+        "_collect_videos", "_split_videos", "_create_samples", "_balance_videos_once"
     ]
     
     for method in methods:
@@ -133,18 +128,18 @@ print("-" * 80)
 
 print("""
 【ステップ1】データセット検証:
-  python inspect_celebdf_dataset.py
+  python scripts/inspect_celebdf_dataset.py
 
 【ステップ2】トレーニング実行（シングルFold）:
-  python train_celebdf.py 6ch 0
-  python train_celebdf.py 3ch 1
+  python train/train_celebdf.py 6ch 0
+  python train/train_celebdf.py 3ch 1
 
 【ステップ3】テスト実行:
-  python test_celebdf.py 6ch 0
+  python test/test_celebdf.py 6ch 0
 
 【ステップ4】Cross-Validation実行（複数Fold）:
-  python run_cross_validation_celebdf.py 6ch 5
-  python run_cross_validation_celebdf.py 3ch 3
+  python train/run_cross_validation_celebdf.py 6ch 5
+  python train/run_cross_validation_celebdf.py 3ch 3
 """)
 
 # 7. 重要な特徴
@@ -171,4 +166,4 @@ print("実装完了！")
 print("="*80 + "\n")
 
 print("詳細は CELEBDF_GUIDE.md を参照してください。")
-print("または: python inspect_celebdf_dataset.py でデータセットを検証してください。\n")
+print("または: python scripts/inspect_celebdf_dataset.py でデータセットを検証してください。\n")
