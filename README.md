@@ -112,7 +112,7 @@ python train.py 3ch_res
 ### 標準データセット
 
 ```
-F:\2026_8025504_Kryoma\my_data\image\raw/
+!YOUR_DATAPATH!
 ├── train/
 │   ├── real/
 │   └── swap/
@@ -127,7 +127,7 @@ F:\2026_8025504_Kryoma\my_data\image\raw/
 ### Celeb-DF データセット
 
 ```
-F:\2026_8025504_Kryoma\external_dataset\Celeb-DF\rsc\raw/
+!YOUR_CELEBDF_PATH!
 ├── real/
 │   ├── train/
 │   └── test/
@@ -160,12 +160,11 @@ F:\2026_8025504_Kryoma\external_dataset\Celeb-DF\rsc\raw/
 ### Celeb-DF Dataset
 - **出典**: [Celeb-DF: A Large-scale Challenging Dataset for DeepFake Forensics](https://github.com/yuezunli/celeb-deepfakeforensics)
 - **利用条件**: 研究目的のみ（商用利用は不可）
-- **論文**: Li et al. (2020). "The Eyes Tell All: Detecting Political Orientation from Eye Movement Data" [実際の論文情報は公式リポジトリを参照]
-
+- **論文**: Li et al. Celeb-DF: A Large-scale Challenging Dataset for DeepFake Forensics (2020). 
 ### Face Forensics++ (FF++)
 - **出典**: [FaceForensics++: Learning to Detect Manipulated Facial Images](https://github.com/ondyari/FaceForensics)
 - **利用条件**: 学術研究・非営利目的のみ
-- **論文**: Rössler et al. (2019)
+- **論文**: Rössler et al. FaceForensics++: Learning to Detect Manipulated Facial Images (2019)
 
 ### ⚠️ 重要事項
 - このコードを商用目的で使用する場合は、各データセットの利用規約を確認してください
