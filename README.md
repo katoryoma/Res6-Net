@@ -153,3 +153,24 @@ F:\2026_8025504_Kryoma\external_dataset\Celeb-DF\rsc\raw/
 | 3ch_res | (64, 3, 7, 7) | (3, 384, 384) |
 | 6ch | (64, 6, 7, 7) | (6, 384, 384) |
 
+## ライセンス・使用データセット
+
+このプロジェクトは以下のデータセットを使用する想定です。使用する際は、各データセットの利用規約を遵守してください。
+
+### Celeb-DF Dataset
+- **出典**: [Celeb-DF: A Large-scale Challenging Dataset for DeepFake Forensics](https://github.com/yuezunli/celeb-deepfakeforensics)
+- **利用条件**: 研究目的のみ（商用利用は不可）
+- **論文**: Li et al. (2020). "The Eyes Tell All: Detecting Political Orientation from Eye Movement Data" [実際の論文情報は公式リポジトリを参照]
+
+### Face Forensics++ (FF++)
+- **出典**: [FaceForensics++: Learning to Detect Manipulated Facial Images](https://github.com/ondyari/FaceForensics)
+- **利用条件**: 学術研究・非営利目的のみ
+- **論文**: Rössler et al. (2019)
+
+### ⚠️ 重要事項
+- このコードを商用目的で使用する場合は、各データセットの利用規約を確認してください
+- Celeb-DF と Face Forensics++ は研究目的のための条件付きアクセスとなっています
+- データセット所有者の明示的な許可を得ずに商用利用することはできません
+
+
+
